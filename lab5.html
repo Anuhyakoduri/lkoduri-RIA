@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ITMD 565 Lab 4 - Canvas Drawing</title>
+	<style type="text/css">
+		#content-wrapper {
+			width: 600px;
+			margin: 0 auto;
+			text-align: center;
+		}
+		#Run {
+			background-color: #c00;
+			border: 0;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="content-wrapper">
+		<button id="Run">Draw Canvas</button><br><br>
+		<canvas id="main" width="600" height="450"></canvas>
+	</div>
+	<script type="text/javascript">
+
+		document.addEventListener('DOMContentLoaded', function(){
+			document.getElementById('Run').addEventListener('click', function() {
+			var canvas = document.getElementById('main');
+			if (canvas.getContext){
+				var contextrender = canvas.getContext('2d');
+                console.log(contextrender); // CanvasRenderingContext2D { ... }
+                var rotation = 0;
+				window.requestAnimationFrame(drawFrame);
+			}
+			function drawFrame(){
+				var contextrender=canvas.getContext("2d");
+				contextrender.clearRect(0, 0, 700, 500);
+
+				var gradient = contextrender.createLinearGradient(0, 0, 0, 500);
+				gradient.addColorStop(1.0, "black");
+				gradient.addColorStop(0.0, "white");
+				contextrender.fillStyle = gradient;
+				contextrender.fillRect(0, 0, 700, 500);
+
+                contextrender.beginPath();
+                contextrender.strokeStyle = '#C80000'; // redcolor
+                contextrender.lineWidth = 6;
+                contextrender.moveTo(25, 65)
+                contextrender.lineTo(575,65);
+                contextrender.stroke();
+
+                var heading = "ITMD 565 Canvas Lab";
+				contextrender.font = '32px sans-serif';
+				contextrender.fillStyle = '#C80000'; // red color
+				contextrender.fillText(heading, 175, 50,300,40);
+
+				contextrender.beginPath();
+			    contextrender.arc(100,150,50,0,2*Math.PI,false);
+			    contextrender.fillStyle = '#0000C8'; // blue color
+			    contextrender.fill();
+			    contextrender.lineWidth = 3.5;
+			    contextrender.strokeStyle = '#FFFFFF';
+			    contextrender.stroke();
+
+			    contextrender.beginPath();
+				contextrender.strokeStyle = '#000000';
+				contextrender.lineWidth = 13;
+				contextrender.save();
+				contextrender.translate(305, 150);
+				contextrender.rotate(rotation * (Math.PI / 30));
+				contextrender.arc(0,0,55,0,0.8 * Math.PI,false);
+				contextrender.strokeStyle = '#FFA500';
+				contextrender.stroke();
+				contextrender.restore();
+
+				contextrender.beginPath();
+				contextrender.lineWidth=5;
+				contextrender.save();
+				contextrender.translate(500, 150);
+				contextrender.rotate(rotation * (Math.PI / 300));
+				contextrender.rect(-55,-55,100,100);
+				contextrender.fillStyle = '#C80000';
+				contextrender.fill();
+				contextrender.strokeStyle = "#FFFFFF";
+				contextrender.stroke();
+				contextrender.restore();
+
+				contextrender.beginPath();
+				contextrender.moveTo(100,240);
+				contextrender.lineTo(160,340);
+				contextrender.lineTo(40, 340);
+				contextrender.closePath();
+				contextrender.fillStyle = '#00C800';
+				contextrender.fill();
+
+				contextrender.beginPath();
+				contextrender.fillStyle = '#FFFFFF';
+	            contextrender.rect(300, 240, 280, 80);
+	            contextrender.globalAlpha = 1;
+	            contextrender.fill();
+				contextrender.setLineDash([5]);
+	            contextrender.beginPath();
+	            contextrender.lineWidth = 1;
+	            contextrender.moveTo(330, 280);
+	            contextrender.quadraticCurveTo(380,234,430,284);
+	            contextrender.quadraticCurveTo(480,324,530,284);
+	            contextrender.strokeStyle = '#000000';
+	            contextrender.stroke();
+	            contextrender.setLineDash([]);
+
+                img = new Image();
+                img.src = 'IIT_SAT_stack_186_white.png';
+                contextrender.drawImage(img, 250, 350,350,90);
+
+				contextrender.font = '14px sans-serif';
+				contextrender.fillStyle = '#FFFFFF';
+				contextrender.fillText("lkoduri@hawk.iit.edu", 35, 400,160,35);
+
+                contextrender.font = '14px sans-serif';
+                contextrender.fillStyle = '#FFFFFF';
+                contextrender.fillText("Anuhya Koduri", 40, 375,100,40);
+
+				rotation += 1;
+
+				window.requestAnimationFrame(drawFrame);
+			}
+			});
+		});
+
+	</script>
+</body>
+</html>
